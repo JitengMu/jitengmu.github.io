@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="CoordGAN: Self-Supervised Dense Correspondences Emerge from GANs">
+  <meta name="keywords" content="CoordGAN, GAN, correspondence">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CoordGAN: Self-Supervised Dense Correspondences Emerge from GANs</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">CoordGAN: Self-Supervised Dense Correspondences Emerge from GANs</h1>
+          <h3 class="title is-3 publication-title">(CVPR 2022)</h3>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://jitengmu.github.io/">Jiteng Mu</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://research.nvidia.com/person/shalini-gupta">Shalini De Mello</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://research.nvidia.com/person/zhiding-yu">Zhiding Yu</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://www.svcl.ucsd.edu/~nuno/">Nuno Vasconcelos</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://xiaolonw.github.io/">Xiaolong Wang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://research.nvidia.com/person/jan-kautz">Jan Kautz</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://research.nvidia.com/person/sifei-liu">Sifei Liu</a><sup>2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of California San Diego,</span>
+            <span class="author-block"><sup>2</sup>Nvidia</span>
+          </div>
+          <div class="is-size-5 publication-note">
+            <span class="author-block">(<sup>*</sup> Work done while an intern at Nvidia)</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="static/images/CVPR2022_CoordGAN.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://youtube.com/embed/FP27huY0Yu0"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Slides Link. -->
+              <span class="link-block">
+                <a href="static/images/slides.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-slideshare"></i>
+                  </span>
+                  <span>Slides</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/JitengMu/CoordGAN"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop height="100%">
+        <source src="static/images/teaser.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle">
+         <p> 
+         <span style="color: brown; font-weight:bold"> A structure-texture disentangled GAN with dense correspondence map. </span>
+         Each row: same structure but different texture codes.
+         </p>
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+
+Recent advances show that Generative Adversarial Networks (GANs) can synthesize images with smooth variations along semantically meaningful latent directions, such as pose, expression, layout, etc. While this indicates that GANs implicitly learn pixel-level correspondences across images, few studies explored how to extract them explicitly. In this work, we introduce Coordinate GAN (CoordGAN), a structure-texture disentangled GAN that learns a dense correspondence map for each generated image. 
+
+We represent the correspondence maps of different images as warped coordinate frames transformed from a canonical coordinate frame,
+
+i.e., the correspondence map, which describes the structure (e.g., the shape of a face), is controlled via a transformation.
+
+Hence, finding correspondences boils down to locating coordinates of different correspondence maps that are transformed from the same coordinates in the canonical frame. 
+
+In CoordGAN, we sample a transformation to represent the structure of a synthesized instance, while an independent texture branch is responsible for rendering appearance details orthogonal to the structure. 
+
+Our approach can also extract dense correspondence maps for real images by adding an encoder on top of the generator.
+
+We quantitatively demonstrate the quality of the learned dense correspondences through segmentation mask transfer on multiple datasets. We also show that the proposed generator achieves better structure and texture disentanglement compared to existing approaches.
+
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://youtube.com/embed/FP27huY0Yu0?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-3">Identity-preserved Texture Swapping</h2>
+    <div class="columns">
+      <div class="column">
+        <p> Each row shows images generated with 
+<span style="color: brown; font-weight:bold">the same structure code</span>
+but 
+<span style="color: brown; font-weight:bold">different texture codes</span>
+. 
+Correspondence maps are controlled by structure codes. </p>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <video autoplay muted loop playsinline height="100%">
+        <source src="static/images/texture_swap_celebA.mp4" type="video/mp4">
+      </video>
+      <video autoplay muted loop playsinline height="100%">
+        <source src="static/images/texture_swap_stanfordcar.mp4" type="video/mp4">
+      </video>
+      <video autoplay muted loop playsinline height="100%">
+        <source src="static/images/texture_swap_afhq.mp4" type="video/mp4">
+      </video>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="hero is-small">
+  <div class="hero-body">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-3">Other Image Domains</h2>
+    <div class="columns">
+      <div class="column">
+        <p> 
+            Combining structure codes learned from real images with textures learned from art images to generate images with diverse art styles.
+        </p>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <video autoplay muted loop playsinline height="100%">
+        <source src="static/images/texture_swap_metface.mp4" type="video/mp4">
+      </video>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="hero is-small">
+  <div class="hero-body">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-3">Structure Swapping</h2>
+    <div class="columns">
+      <div class="column">
+        <p> Each row shows images generated with 
+<span style="color: brown; font-weight:bold">the same texture code</span>
+but 
+<span style="color: brown; font-weight:bold">different structure codes</span>
+. 
+Correspondence maps are controlled by structure codes. </p>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <video autoplay muted loop playsinline width="100%">
+        <source src="static/images/struc_swap_celebA.mp4" type="video/mp4">
+      </video>
+      <video autoplay muted loop playsinline width="100%">
+        <source src="static/images/struc_swap_stanfordcar.mp4" type="video/mp4">
+      </video>
+      <video autoplay muted loop playsinline width="100%">
+        <source src="static/images/struc_swap_afhq.mp4" type="video/mp4">
+      </video>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</section>
+
+<section class="hero is-small">
+  <div class="hero-body">
+  <div class="container is-max-widescreen">
+    <h2 class="title is-3">Semantic Label Propagation</h2>
+    <div class="columns">
+      <div class="column">
+        <p> 
+            In each row, given one reference image along with its semantic labels,
+            the proposed approach predicts its correspondence map and propagates its segmentation mask to other query images.
+        </p>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <video autoplay muted loop playsinline height="100%">
+        <source src="static/images/correspondence_celebA.mp4" type="video/mp4">
+      </video>
+      <video autoplay muted loop playsinline height="100%">
+        <source src="static/images/correspondence_stanfordcar.mp4" type="video/mp4">
+      </video>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{mu2022coordgan,
+                author = {Mu, Jiteng and De Mello, Shalini and Yu, Zhiding
+                          and Vasconcelos, Nuno and Wang, Xiaolong and Kautz, Jan and Liu, Sifei},
+                title = {CoordGAN: Self-Supervised Dense Correspondences Emerge from GANs},
+                journal = {arXiv preprint arXiv: 2203.00000},
+                year={2022}}</code>
+     </pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/JitengMu" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="content">
+        <p>
+          The template is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

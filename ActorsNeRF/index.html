@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="ActorsNeRF: Animatable Few-shot Human Rendering with Generalizable NeRFs">
+  <meta name="keywords" content="animatable, few-shot, generalizable nerf">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="article:publisher" content="https://jitengmu.github.io/ActorsNeRF/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ActorsNeRF: Animatable Few-shot Human Rendering with Generalizable NeRFs" />
+  <meta name="twitter:description" content="Animatable Few-shot Human Rendering with Generalizable NeRFs." />
+  <meta name="twitter:url" content="https://jitengmu.github.io/ActorsNeRF" />
+  <meta name="twitter:image" content="https://jitengmu.github.io/ActorsNeRF/images/teaser.jpg" />
+  <!-- <meta name="twitter:site" content="" /> -->
+
+  <title>ActorsNeRF: Animatable Few-shot Human Rendering with Generalizable NeRFs</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">ActorsNeRF: Animatable Few-shot Human Rendering with Generalizable NeRFs</h1>
+          <h3 class="title is-3 publication-title">(ICCV 2023)</h3>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://jitengmu.github.io/">Jiteng Mu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://ssangx.github.io/">Shen Sang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://www.svcl.ucsd.edu/~nuno/">Nuno Vasconcelos</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://xiaolonw.github.io/">Xiaolong Wang</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of California San Diego,</span>
+            <span class="author-block"><sup>2</sup>ByteDance</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2304.14401"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <!--
+                <a href="https://drive.google.com/file/d/1tL9uWMKpL-Y_QqgNq6WF5DO6BpNCPAsD/preview"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a> -->
+                <a href="https://youtube.com/embed/CH9f31jRNRA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Talk Link. -->
+              <span class="link-block">
+                <a href="https://youtube.com/embed/9mIrYlH_KxA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Talk</span>
+                </a>
+              </span>
+              <!-- Slides Link. -->
+              <!--
+              <span class="link-block">
+                <a href="static/images/slides.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-slideshare"></i>
+                  </span>
+                  <span>Slides</span>
+                </a>
+              </span>
+              -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/JitengMu/ActorsNeRF"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="static/images/teaser.mp4"
+                type="video/mp4">
+      </video>
+    <h2 class="subtitle">
+       <p> 
+       We present ActorsNeRF, a category-level human actor NeRF model that generalizes to unseen actors in a few-shot setting. 
+       </p>
+    </h2>
+    </div>
+    <div id="results-carousel" class="carousel results-carousel">
+      <div class="item item-steve">
+        <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+          <source src="./static/images/freestyle.mp4"
+                  type="video/mp4">
+        </video>
+      </div>
+      <div class="item item-chair-tp">
+        <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+          <source src="./static/images/fence.mp4"
+                  type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <h2 class="subtitle">
+       <p> 
+       With only a few images (e.g., 30 frames) of an unseen actor in the AIST++ Dataset, ActorsNeRF animates the actor with novel poses from the 3DPW Dataset.
+       </p>
+    <br>
+    <br>
+    </h2>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+    While NeRF-based human representations have shown impressive novel view synthesis results, most methods still rely on a large number of images / views for training. In this work, we propose a novel animatable NeRF called ActorsNeRF. It is first pre-trained on diverse human subjects, and then adapted with few-shot monocular video frames for a new actor with unseen poses. Building on previous generalizable NeRFs with parameter sharing using a ConvNet encoder, ActorsNeRF further adopts two human priors to capture the large human appearance, shape, and pose variations. Specifically, in the encoded feature space, we will first align different human subjects in a category-level canonical space, and then align the same human from different frames in an instance-level canonical space for rendering. We quantitatively and qualitatively demonstrate that ActorsNeRF significantly outperforms the existing state-of-the-art on few-shot generalization to new people and poses on multiple datasets. 
+
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Video</h2>
+        <!--
+        <div class="publication-video">
+          <iframe src="https://drive.google.com/file/d/1tL9uWMKpL-Y_QqgNq6WF5DO6BpNCPAsD/preview" width="1920" height="1080" allow="autoplay"></iframe>
+        </div>
+        -->
+        <div class="publication-video">
+          <iframe src="https://youtube.com/embed/CH9f31jRNRA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+  </div>
+</section>
+
+
+<section class="hero">
+  <div class="hero-body">
+  <div class="container">
+    <h2 class="title is-3">ActorsNeRF Approach</h2>
+    <div class="columns">
+      <div class="column">
+        <p> 
+            In order to achieve generalization to novel actors, a category-level NeRF model is first trained on a diverse set of
+            subjects. During the inference phase, we fine-tune the pre-trained category-level NeRF model using only a few images of the target actor, 
+            enabling the model to adapt to the specific characteristics of the actor.
+        </p>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <video autoplay muted loop playsinline height="100%">
+        <source src="static/images/approach.mp4" type="video/mp4">
+      </video>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+    <h2 class="title is-3">Few-shot Generalization</h2>
+    <div class="columns">
+      <div class="column">
+        <p> We demonstrate on multiple datasets that, with only a few images (e.g., 30 frames from a monocular video), ActorsNeRF synthesizes
+<span style="color: brown; font-weight:bold">novel views</span>
+of a
+<span style="color: brown; font-weight:bold">new person</span>
+with
+<span style="color: brown; font-weight:bold">novel poses</span>
+.       </p>
+      </div>
+    </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d20-pose2-new.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d16-pose2-new.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d17-pose2-new.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d18-pose2-new.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d19-pose2-new.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    <br>
+<!--    <h3 class="title is-4">Pose Transfer from 3DPW Dataset</h3>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/fence.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/freestyle.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    <br>
+-->
+    </div>
+  </div>
+</section>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+
+    <h3 class="title is-4">Different Actors with Synchronized Novel Actions</h3>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d20-pose1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d16-pose1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d17-pose1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d18-pose1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d19-pose1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d18-pose3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d19-pose3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d20-pose3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d16-pose3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/d17-pose3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    <br>
+    <h3 class="title is-4">Same Actor with Different Novel Actions</h3>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/same_sub_1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/same_sub_2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    <br>
+    <h3 class="title is-4">ZJU-MoCap Dataset</h3>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/387-pose1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/393-pose1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/394-pose1.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/393-pose2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/394-pose2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/387-pose2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+
+    <br>
+    <br>
+
+    <h2 class="title is-3">Comparisons</h2>
+    <div class="columns">
+      <div class="column">
+        <p> We vary the number of input images to
+test the novel view synthesis of novel actors with unseen
+poses, the results suggests that the category-level prior of ActorsNeRF improves
+the rendering quality over a large few-shot spectrum      </p>
+      </div>
+    </div>
+
+    <h3 class="title is-4">10shot</h3>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-10shot-d16.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-10shot-d17.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-10shot-d18.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-10shot-d19.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-10shot-d20.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    <br>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-10shot-387.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-10shot-393.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-10shot-394.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+    <br>
+    <h3 class="title is-4">30shot</h3>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-30shot-d16.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-30shot-d17.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-30shot-d18.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-30shot-d19.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-30shot-d20.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    <br>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-30shot-387.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-30shot-393.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-30shot-394.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+    <br>
+    <h3 class="title is-4">100shot</h3>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-100shot-d16.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-100shot-d17.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-100shot-d18.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-100shot-d19.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-100shot-d20.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    <br>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-100shot-387.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-100shot-393.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/comparison-100shot-394.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+<section class="hero is-small">
+  <div class="hero-body">
+  <div class="container is-max-widescreen">
+
+    <h2 class="title is-3">Comparisons</h2>
+
+    <div class="columns">
+      <div class="column">
+        <p> With only a few images (e.g., 30 monocular frames) from a monocular video, ActorsNeRF synthesizes
+<span style="color: brown; font-weight:bold">novel views</span>
+of a
+<span style="color: brown; font-weight:bold">new person</span>
+with
+<span style="color: brown; font-weight:bold">novel poses</span>
+.       </p>
+      </div>
+    </div>
+
+    <h3 class="title is-4">100-shot</h3>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <video autoplay muted loop playsinline width="60%">
+        <source src="static/images/100shot-387.mp4" type="video/mp4">
+      </video>
+      </div>
+    </div>
+
+    <h3 class="title is-4">30-shot</h3>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <video autoplay muted loop playsinline width="60%">
+        <source src="static/images/30shot-387.mp4" type="video/mp4">
+      </video>
+      </div>
+    </div>
+
+    <h3 class="title is-4">10-shot</h3>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <video autoplay muted loop playsinline width="60%">
+        <source src="static/images/10shot-387.mp4" type="video/mp4">
+      </video>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</section>
+-->
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{mu2023actorsnerf,
+                author = {Mu, Jiteng and Sang, Shen
+                          and Vasconcelos, Nuno and Wang, Xiaolong},
+                title = {ActorsNeRF: Animatable Few-shot Human Rendering with Generalizable NeRFs},
+                booktitle = {ICCV},
+                pages = {18391-18401},
+                year={2023}}</code>
+     </pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/JitengMu" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="content">
+        <p>
+          The template is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
