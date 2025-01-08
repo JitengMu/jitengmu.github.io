@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="EditAR: Unified Conditional Generation with Autoregressive Models">
+  <meta name="keywords" content="autoregressive model, generative models, image editing, image synthesis">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="article:publisher" content="https://jitengmu.github.io/EditAR/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="EditAR: Unified Conditional Generation with Autoregressive Models" />
+  <meta name="twitter:description" content="EditAR: Unified Conditional Generation with Autoregressive Models." />
+  <meta name="twitter:url" content="https://jitengmu.github.io/EditAR" />
+  <meta name="twitter:image" content="https://jitengmu.github.io/EditAR/images/teaser.jpg" />
+  <!-- <meta name="twitter:site" content="" /> -->
+
+  <title>EditAR: Unified Conditional Generation with Autoregressive Models</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">EditAR: Unified Conditional Generation <br /> with Autoregressive Models</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://jitengmu.github.io/">Jiteng Mu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://www.svcl.ucsd.edu/~nuno/">Nuno Vasconcelos</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://xiaolonw.github.io/">Xiaolong Wang</a><sup>1,2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>UC San Diego, <sup>2</sup>NVIDIA</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2501.00000"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="static/files/lowres.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper (low-res, 6MB)</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://youtube.com/embed/v_2uDVZAfzw"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/JitengMu/EditAR"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/001.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/002.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/003.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/004.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/005.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/006.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/007.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/008.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/009.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/010.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/011.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/012.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/013.png"
+          class="interpolation-image"/>
+        </div>
+        <div class="item item-t2i0">
+          <img id="myt2i0" src="./static/images/014.png"
+          class="interpolation-image"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-small">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <div class="columns is-centered has-text-centered">
+          <video poster="" id="1" autoplay controls muted loop playsinline width="1080">
+            <source src="./static/images/teaser.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+    <h2 class="subtitle">
+       <p> 
+        We propose EditAR, a unified autoregressive model for diverse conditional generation tasks, e.g., image editing, depth-to-image, edge-to-image, segmentation-to-image.
+       </p>
+    </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+    Diffusion models have made significant advances in text-guided synthesis tasks. 
+    Recent progress in controllable image generation and editing is largely driven by diffusion-based methods. Although diffusion models perform exceptionally well in specific tasks with tailored designs, establishing a unified model is still challenging. 
+    In contrast, autoregressive models inherently feature a unified tokenized representation, which simplifies the creation of a single foundational model for various tasks. 
+    In this work, we propose EditAR, a single unified autoregressive framework for a variety of conditional image generation tasks, e.g., image editing, depth-to-image, edge-to-image, segmentation-to-image. The model takes both images and instructions as inputs, and predicts the edited images tokens in a vanilla next-token paradigm. 
+    To enhance the text-to-image alignment, we further propose to distill the knowledge from foundation models into the autoregressive modeling process. We evaluate its effectiveness across diverse tasks on established benchmarks, showing competitive performance to various state-of-the-art task-specific methods.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://youtube.com/embed/v_2uDVZAfzw?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+  </div>
+</section>
+
+<section class="hero">
+  <div class="hero-body">
+  <div class="container">
+    <h2 class="title is-3">Approach</h2>
+    <div class="columns">
+      <div class="column">
+        <p> 
+          An image is mapped through a VQ-Encoder to obtain corresponding token indices. Corresponding text instructions are mapped to latent
+          embeddings via a text encoder. Both image token indices and text embeddings are input to the autoregressive transformer to
+          predict the target token indices. To enhance the text-to-image alignment, a distillation loss is introduced during training to minimize the
+          differences between the latent features of the autoregressive model and that of a feature encoder. The output sequence is lastly
+          decoded into a realistic image via a VQ-Decoder during inference.
+        </p>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <video autoplay muted loop playsinline width="1920">
+        <source src="static/images/approach.mp4" type="video/mp4">
+      </video>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+     <h2 class="title is-3">Image Editing Comparison</h2>
+      <div class="content has-text-centered">
+          <img src="./static/images/comparison_edit.png" width="100%">
+      </div>
+    </div>
+  </div>
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+     <h2 class="title is-3">Depth-to-Image Comparison</h2>
+      <div class="content has-text-centered">
+          <img src="./static/images/comparison_depth.png" width="100%">
+      </div>
+    </div>
+  </div>
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+     <h2 class="title is-3">Edge-to-Image Comparison</h2>
+      <div class="content has-text-centered">
+          <img src="./static/images/comparison_canny.png" width="100%">
+      </div>
+    </div>
+  </div>
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+     <h2 class="title is-3">Segmentation-to-Image Comparison</h2>
+      <div class="content has-text-centered">
+          <img src="./static/images/comparison_seg.png" width="100%">
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{mu2025editAR,
+         author = {Mu, Jiteng and Vasconcelos, Nuno and Wang, Xiaolong},
+         title = {EditAR: Unified Conditional Generation with Autoregressive Models},
+         journal={arXiv preprint arXiv:2501.000000},
+         year={2025}}</code>
+     </pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/JitengMu" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="content">
+        <p>
+          The template is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
